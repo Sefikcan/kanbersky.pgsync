@@ -1,4 +1,10 @@
-import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { 
+    Column, 
+    Entity, 
+    Index, 
+    OneToMany, 
+    PrimaryGeneratedColumn 
+} from "typeorm";
 import { CategoryProduct } from "./CategoryProduct";
 
 @Entity()

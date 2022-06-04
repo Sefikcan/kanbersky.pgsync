@@ -1,11 +1,17 @@
 import { CategoryProduct } from "../../Category/Entities/CategoryProduct";
-import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { 
+    Column, 
+    Entity,
+    Index, 
+    OneToMany, 
+    PrimaryGeneratedColumn
+} from "typeorm";
 import { ProductMeta } from "./ProductMeta";
 
 @Entity()
 export class Product {
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Index()
     @Column()

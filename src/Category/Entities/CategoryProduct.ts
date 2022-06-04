@@ -1,5 +1,12 @@
-import { Product } from "src/Product/Entities/Product";
-import { Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn, RelationId } from "typeorm";
+import { Product } from "../../Product/Entities/Product";
+import { 
+    Entity, 
+    Index, 
+    JoinColumn, 
+    ManyToOne, 
+    PrimaryGeneratedColumn, 
+    RelationId 
+} from "typeorm";
 import { Category } from "./Category";
 
 @Entity()

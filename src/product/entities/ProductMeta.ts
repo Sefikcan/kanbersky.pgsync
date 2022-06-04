@@ -1,4 +1,12 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn, RelationId } from "typeorm";
+import { 
+    Column, 
+    Entity, 
+    Index, 
+    JoinColumn, 
+    ManyToOne, 
+    PrimaryGeneratedColumn, 
+    RelationId 
+} from "typeorm";
 import { Product } from "./Product";
 
 @Entity()

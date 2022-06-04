@@ -7,9 +7,11 @@ import { CategoryController } from './Category/Controllers/CategoryController';
 import { CategoryService } from './Category/Services/CategoryService';
 import { ProductController } from './Product/Controllers/ProdutController';
 import { ProductService } from './Product/Services/ProductService';
+import { ExceptionFilterModule } from './Common/Logging/ExceptionFilterModule';
 
 @Module({
   imports: [
+    ExceptionFilterModule,
     ConfigurationModule,
     DatabaseModule,
     CategoryEntityProvider,

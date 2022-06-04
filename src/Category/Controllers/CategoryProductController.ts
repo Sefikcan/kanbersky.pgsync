@@ -1,4 +1,10 @@
-import { Body, Controller, Param, ParseIntPipe, ParseUUIDPipe, Post } from "@nestjs/common";
+import { 
+    Body, 
+    Controller,
+    Param, 
+    ParseIntPipe, 
+    Post 
+} from "@nestjs/common";
 import { ApiCreatedResponse } from "@nestjs/swagger";
 import { CategoryProductCreateRequest } from "../DTO/CategoryProductCreateRequest";
 import { CategoryProductService } from "../Services/CategoryProductService";
