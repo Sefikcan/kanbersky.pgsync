@@ -12,17 +12,10 @@
             "children": [
                 {
                     "table":"category_product",
-                    "columns": [
-                        "categoryId",
-                        "productId"
-                    ],
+                    "columns": [],
                     "relationship": {
                         "variant": "object",
-                        "type": "one_to_many",
-                        "foreign_key": {
-                            "child": ["id"],
-                            "parent": ["categoryId"]
-                        }
+                        "type": "one_to_many"
                     },
                     "children": [
                         {
@@ -33,7 +26,7 @@
                             ],
                             "relationship": {
                                 "variant": "object",
-                                "type": "one_to_one",
+                                "type": "one_to_many",
                                 "foreign_key": {
                                     "child": ["id"],
                                     "parent": ["productId"]
