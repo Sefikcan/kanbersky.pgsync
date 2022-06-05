@@ -1,0 +1,105 @@
+# Pgsync nedir?
+- Verileri Postgres'ten Elasticsearch'e senkronize etmek için kullanılır.
+- İstediğiniz verileri JSON formatında tanımlamanız yeterlidir.
+- Veri değişikliklerini sürekli olarak yakalar ve bu işlemi hiç bir kod yazmamıza gerek duymadan Elasticsearch'e yükler.
+- Veri kaybı söz konusu değil.
+
+# Pgsync Ortam Değişkenleri
+- SCHEMA
+- CHECKPOINT_PATH
+- QUERY_CHUNK_SIZE
+- POLL_TIMEOUT
+- REPLICATION_SLOT_CLEANUP_INTERVAL
+- LOG_INTERVAL
+- NTHREADS_POLLDB
+- USE_ASYNC
+- ELASTICSEARCH_SCHEME
+- ELASTICSEARCH_HOST
+- ELASTICSEARCH_PORT
+- ELASTICSEARCH_USER
+- ELASTICSEARCH_PASSWORD
+- ELASTICSEARCH_TIMEOUT
+- ELASTICSEARCH_CHUNK_SIZE
+- ELASTICSEARCH_MAX_CHUNK_BYTES
+- ELASTICSEARCH_THREAD_COUNT
+- ELASTICSEARCH_QUEUE_SIZE
+- ELASTICSEARCH_MAX_RETRIES	
+- PG_HOST
+- PG_PORT
+- PG_USER
+- PG_PASSWORD
+
+# Schema tanımlama
+- Elasticsearch'e veri aktarmak için oluşturduğumuz JSON'da bazı önemli key'lerden bahsetmek gerekirsE;
+  - database: Veritabanı ismi
+  - index: Elasticsearch index ismi(varsayılan db name)
+  - nodes: Elasticsearch'e aktardığımız veriyi tanımladığımız yer.
+  - settings: Elasticsearch ayarlarını yaptığımız key.
+  {
+    "setting": {
+        "analysis": {
+            "analyzer": {
+                "ngram_analyzer": {
+                    "filter": [
+                        "lowercase"
+                    ],
+                    "type": "custom",
+                    "tokenizer": "ngram_tokenizer"
+                }
+            },
+            "tokenizer": {
+                "ngram_tokenizer": {
+                    "token_chars": [
+                        "letter",
+                        "digit",
+                        "punctuation",
+                        "symbol"
+                    ],
+                    "min_gram": "9",
+                    "type": "nGram",
+                    "max_gram": "10"
+                }
+            }
+        }
+    }
+}
+  - table: Veritabanı tablo ismi
+  - schema: Veritabanı schema ismi
+  - columns: Veritabanı tablo kolon isimlerini belirttiğimiz array
+  - children: Veritabanı ilişkili tabloları aldığımız array
+  - relationship: Burada ilişkili tabloların bilgisini tanımlarız.
+    - variant: object ve scalar olabilir.
+    * Object dersek aşağıdaki şekilde
+    {
+    "name": "Oxford Press",
+    "id": 1,
+    "is_active": false
+    }
+    * Scalar dersek aşağıdaki şekilde veri döner.
+    ["Haruki Murakami", "Philip Gabriel"]
+    - type: İlişki tipini tanımladığımız key, one_to_one veya one_to_many değerleri vardır.
+    - through_tables: Veritabanındaki ara tabloları bağlamamızı sağlayan bir özellik.
+  - transform: Key değerlerinin dönüşümüne izin vermek için kullanılır.
+    - rename: Key değerini yeniden ayarlamamızı sağlar.
+     "rename": {
+        "<old column name 1>": "<new column name 1>",
+        "<old column name 2>": "<new column name 2>",
+    }
+    - mapping: Veri mapping işlemi yapar.
+     "mapping": {
+         "book_id": {
+            "type": "long"
+        },
+        "book_isbn": {
+            "type": "long",
+            "fields":{
+                "ngram": {
+                    "type": "text",
+                    "analyzer": "ngram_analyzer",
+                    "search_analyzer": "ngram_analyzer",
+                    "fielddata": true
+                }
+            }
+        }
+    }
+
