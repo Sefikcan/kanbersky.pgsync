@@ -14,6 +14,9 @@ export class ProductMeta {
     @PrimaryGeneratedColumn()
     id: string;
 
+    @Column()
+    lang: string;
+
     @Index()
     @Column()
     name: string;

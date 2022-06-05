@@ -5,11 +5,12 @@ import {
     ParseIntPipe, 
     Post 
 } from "@nestjs/common";
-import { ApiCreatedResponse } from "@nestjs/swagger";
+import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger";
 import { CategoryProductCreateRequest } from "../DTO/CategoryProductCreateRequest";
 import { CategoryProductService } from "../Services/CategoryProductService";
 
 @Controller('v1/categories')
+@ApiTags('categories')
 export class CategoryProductController {
     constructor(private readonly categoryProductService: CategoryProductService) {}
 

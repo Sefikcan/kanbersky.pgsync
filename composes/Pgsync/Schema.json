@@ -1,11 +1,54 @@
 [
     {
-        "database": "",
-        "index": "",
+        "database": "postgres",
+        "index": "product",
         "nodes": {
-            "table": "",
+            "table": "category",
             "schema": "public",
-            "columns": []
+            "columns": [
+                "id",
+                "name"
+            ],
+            "children": [
+                {
+                    "table":"category_product",
+                    "columns": [
+                        "categoryId",
+                        "productId"
+                    ],
+                    "relationship": {
+                        "variant": "object",
+                        "type": "one_to_many",
+                        "foreign_key": {
+                            "child": ["id"],
+                            "parent": ["categoryId"]
+                        }
+                    },
+                    "children": [
+                        {
+                            "table":"product",
+                            "columns": [
+                                "id",
+                                "name"
+                            ],
+                            "relationship": {
+                                "variant": "object",
+                                "type": "one_to_one",
+                                "foreign_key": {
+                                    "child": ["id"],
+                                    "parent": ["productId"]
+                                }
+                            },
+                            "transform": {
+                                "rename": {
+                                    "id": "product_id",
+                                    "title": "product_title"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     }
 ]

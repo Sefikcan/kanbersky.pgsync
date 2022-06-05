@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 import { CreateCategoryRequest } from "../DTO/CategoryCreateRequest";
 import { Category } from "../Entities/Category";
-import { CategoryRepository } from "../Repositories/CategoryRepository";
 
 @Injectable()
 export class CategoryService {
-    constructor(private readonly categoryRepository: CategoryRepository) {}
+    constructor(@InjectRepository(Category) private readonly categoryRepository: Repository<Category>) {}
 
     async findOne(id: number): Promise<Category> {
         const result = await this.categoryRepository.findOne({ where: { id: id } });

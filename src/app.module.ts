@@ -1,29 +1,15 @@
 import { Module } from '@nestjs/common';
+import { CategoryModule } from './Category/CategoryModule';
 import ConfigurationModule from './Common/Configuration/ConfigurationModule';
 import DatabaseModule from './Common/Database/DatabaseModule';
-import CategoryEntityProvider from './Category/Providers/EntityProvider';
-import ProductEntityProvider from './Product/Providers/EntityProvider';
-import { CategoryController } from './Category/Controllers/CategoryController';
-import { CategoryService } from './Category/Services/CategoryService';
-import { ProductController } from './Product/Controllers/ProdutController';
-import { ProductService } from './Product/Services/ProductService';
-import { ExceptionFilterModule } from './Common/Logging/ExceptionFilterModule';
+import { ProductModule } from './Product/ProductModule';
 
 @Module({
   imports: [
-    ExceptionFilterModule,
     ConfigurationModule,
     DatabaseModule,
-    CategoryEntityProvider,
-    ProductEntityProvider
-  ],
-  controllers: [
-    CategoryController,
-    ProductController
-  ],
-  providers: [
-    CategoryService,
-    ProductService
-  ],
+    CategoryModule,
+    ProductModule,
+  ]
 })
 export class AppModule {}

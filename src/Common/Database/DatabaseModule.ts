@@ -1,6 +1,5 @@
 import { ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { getMetadataArgsStorage } from "typeorm";
 import ConfigurationModule from "../Configuration/ConfigurationModule";
 
 export default TypeOrmModule.forRootAsync({
@@ -15,7 +14,8 @@ export default TypeOrmModule.forRootAsync({
       username: configService.get('DB_USERNAME'),
       password: configService.get('DB_PASSWORD'),
       database: configService.get('DB_DATABASE'),
-      entities: getMetadataArgsStorage().tables.map(t => t.target),
+      entities: ['dist/**/*.entity.{ts,js}'],
+      autoLoadEntities: true,
     }),
     inject: [ ConfigService ]
   });
