@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ProductCreateRequest } from "../DTO/ProductCreateRequest";
 import { Product } from "../Entities/Product";
+import { ProductMeta } from "../Entities/ProductMeta";
 
 @Injectable()
 export class ProductService {
@@ -18,6 +19,20 @@ export class ProductService {
     }
 
     async create(productCreateRequest: ProductCreateRequest): Promise<Product> {
-        return await this.productRepository.save(productCreateRequest);
+        let productMetas = new Array<ProductMeta>();
+        
+        if (productCreateRequest.metas && productCreateRequest.metas.length > 0) {
+            for(const meta of productCreateRequest.metas) {
+                let productMeta = new ProductMeta();
+                productMeta.lang = meta.lang;
+                productMeta.name = meta.name;
+                productMetas.push(productMeta);
+            }
+        }
+
+        const product = new Product(productMetas);
+        product.name = productCreateRequest.name;
+
+        return await this.productRepository.save(product);
     }
 }

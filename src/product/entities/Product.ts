@@ -10,6 +10,10 @@ import { ProductMeta } from "./ProductMeta";
 
 @Entity()
 export class Product {
+    constructor(metas: ProductMeta[]) {
+        this.metas = metas;
+    }
+
     @PrimaryGeneratedColumn()
     id: number;
 

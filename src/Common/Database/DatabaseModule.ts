@@ -8,7 +8,7 @@ export default TypeOrmModule.forRootAsync({
     ],
     useFactory: (configService: ConfigService) => ({
       type: 'postgres',
-      synchronize: true,
+      synchronize: false,
       host: configService.get('DB_HOST'),
       port: Number(configService.get('DB_PORT')),
       username: configService.get('DB_USERNAME'),
