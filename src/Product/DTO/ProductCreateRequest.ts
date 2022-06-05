@@ -5,6 +5,6 @@ export class ProductCreateRequest {
     @ApiProperty()
     name: string;
 
-    @ApiProperty()
+    @ApiProperty( { type: () => ProductMetaCreateRequest })
     metas: ProductMetaCreateRequest[];
 }

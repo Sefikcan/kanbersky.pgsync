@@ -20,6 +20,6 @@ export class Product {
     @OneToMany(() => CategoryProduct, categoryProduct => categoryProduct.product)
     categoryProduct: CategoryProduct[];
 
-    @OneToMany(() => ProductMeta, meta => meta.product, { cascade: true })
+    @OneToMany(() => ProductMeta, meta => meta.product, { cascade: [ 'insert' ] })
     metas: ProductMeta[];
 }
